@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\bookInfo;
+use App\Models\Book;
 class UserController extends Controller
 {
     /**
@@ -11,7 +11,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['books'] = bookInfo::all();
+        $data['books'] = Book::all();
         return view('books.index', $data);
     }
 
@@ -28,14 +28,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $BookInfo = new bookInfo();
-        $BookInfo->title     = $request['title'];
-        $BookInfo->author     = $request['author'];
-        $BookInfo->description     = $request['description'];
-        $BookInfo->isbn     = $request['isbn'];
-        $BookInfo->publishedYear   = $request['publishedYear'];
-        $BookInfo->save();
+        $Books = new Book();
 
+        $request->validate([
+            'title'          => 'required',
+            "author"         => 'required',
+            "description"    => 'required',
+            "isbn"           => 'required',
+            "publishedYear"  => 'required|date',
+        ]);
+
+        $Books->title           = $request['title'];
+        $Books->author          = $request['author'];
+        $Books->description     = $request['description'];
+        $Books->isbn            = $request['isbn'];
+        $Books->publishedYear   = $request['publishedYear'];
+        $Books->save();
+
+        
         return redirect()->to('books');
     }
 
@@ -44,7 +54,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $BookInfo = bookInfo::find($id); 
+        $BookInfo = Book::find($id); 
     }
 
     /**
@@ -52,7 +62,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $data['books'] = bookInfo::find($id);
+        $data['books'] = Book::find($id);
         return view('books.index', $data);
     }
 
@@ -61,7 +71,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $BookInfo = bookInfo::find($id);
+        $BookInfo = Book::find($id);
         $BookInfo->title     = $request['title'];
         $BookInfo->author     = $request['author'];
         $BookInfo->description     = $request['description'];
@@ -77,7 +87,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $BookInfo = bookInfo::find($id);
+        $BookInfo = Book::find($id);
         $BookInfo->delete();
         return redirect()->to('books');
     }

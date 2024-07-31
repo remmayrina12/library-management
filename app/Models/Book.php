@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class bookInfo extends Model
+class book extends Model
 {
     use HasFactory;
     protected $table = "books";
@@ -15,5 +15,7 @@ class bookInfo extends Model
         'description',
         'isbn',
         'publishedYear',
+        'created_at',
+        'updated_at',
     ];
 }

@@ -21,13 +21,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($books as $Books)
+            @foreach($books as $book)
             <tr>
-                <td>{{ $Books->title }}</td>
-                <td>{{ $Books->author }}</td>
-                <td>{{ $Books->description }}</td>
-                <td>{{ $Books->isbn }}</td>
-                <td>{{ $Books->publishedYear }}</td>
+                <td>{{ $book->title }}</td>
+                <td>{{ $book->author }}</td>
+                <td>{{ $book->description }}</td>
+                <td>{{ $book->isbn }}</td>
+                <td>{{ $book->publishedYear }}</td>
                 <td>
                     <a href="{{ url('books', $books->id) }}/edit" class="btn btn-outline-success btn-sm">Edit</a>
                     <form action="{{ url('books', $books->id) }}" method="POST">
